@@ -5,7 +5,7 @@ RUN apt-get update -yq
 RUN apt-get install vim -yq
 RUN apt-get install curl -yq
 RUN apt-get install wget -yq
-RUN apt-get install php-fpm php-mysql -yq
+RUN apt-get install php7.4-fpm php7.4-mysql -yq
 
 RUN ln -sf /usr/share/zoneinfo/Europe/Lisbon /etc/localtime
 
@@ -22,11 +22,11 @@ WORKDIR /var/www/html/wordpress
 COPY /conf/ .
 RUN chown -R www-data:www-data /var/www/html/wordpress
 
-COPY /conf/www.conf /etc/php/fpm/pool.d/www.conf
+COPY /conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 WORKDIR /tmp/
 # Install wordpress CLI to allow command line management
-RUN curl -O https:://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp-cli
 
