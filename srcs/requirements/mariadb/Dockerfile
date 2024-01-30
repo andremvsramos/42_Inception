@@ -1,26 +1,16 @@
+# Penultimate stable version of Debian
 FROM debian:bullseye
+
 EXPOSE 3306
 
-# Install MariaDB
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
-    --no-install-suggests mariadb-server
-RUN rm -rf /var/lib/apt/lists/*
+RUN	apt update \
+	&& apt install -y --no-install-recommends --no-install-suggests \
+	mariadb-server \
+	&& rm -rf /var/lib/apt/lists/*
 
-# MYSQL SERVICE TEST ENV
-# ENV MYSQL_DATABASE="InceptionDB"
-# ENV MYSQL_USER="andvieir"
-# ENV MYSQL_PASSWORD="docker"
-# ENV MYSQL_DB_HOST="mariadb"
+COPY	conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
-RUN ln -sf /usr/share/zoneinfo/Europe/Lisbon /etc/localtime
+COPY	tools/startup.sh /bin/
+RUN	chmod +x /bin/startup.sh
 
-# Give perms to script test
-COPY /tools/ /tmp/
-RUN  chmod +x /tmp/startup.sh
-
-# Copy mariadb config to VM
-COPY /conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-RUN mysql_install_db
-
-ENTRYPOINT ["sh","-c", "/bin/bash /tmp/startup.sh;"]
+CMD	["startup.sh", "mysqld_safe"]

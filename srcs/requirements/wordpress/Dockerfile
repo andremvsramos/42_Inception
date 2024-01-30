@@ -1,33 +1,40 @@
+# Penultimate stable version of Debian, at the time of the project
 FROM debian:bullseye
 
-RUN apt-get update -yq
+# Default port for PHP-FPM
+EXPOSE	9000
 
-RUN apt-get install vim -yq
-RUN apt-get install curl -yq
-RUN apt-get install wget -yq
-RUN apt-get install php7.4-fpm php7.4-mysql -yq
+ARG	PHPPATH=/etc/php/7.4/fpm
 
-RUN ln -sf /usr/share/zoneinfo/Europe/Lisbon /etc/localtime
+RUN		apt update && apt install --no-install-recommends --no-install-suggests -y \
+		ca-certificates \
+		php7.4-fpm \
+		php7.4-mysql \
+		mariadb-client \
+		wget \
+		tar
 
-# Copy the script to the VM container
-COPY /tools/ /tmp/
+# Download and extract WordPress
+RUN wget https://wordpress.org/wordpress-6.3.1.tar.gz -P /var/www
+RUN cd /var/www && tar -xzf wordpress-6.3.1.tar.gz && rm wordpress-6.3.1.tar.gz
 
-RUN mkdir /var/www
-RUN mkdir /var/www/html
-WORKDIR /var/www/html
-RUN wget https://wordpress.org/latest.tar.gz
-RUN tar -xvzf latest.tar.gz
-RUN rm latest.tar.gz
-WORKDIR /var/www/html/wordpress
-COPY /conf/ .
-RUN chown -R www-data:www-data /var/www/html/wordpress
+# Copy the WordPress configuration file
+COPY ./conf/wp-config.php /var/www/wordpress/wordpress/wp-config.php 
 
-COPY /conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+# Set ownership of the WordPress directory
+RUN chown -R root:root /var/www/wordpress
 
-WORKDIR /tmp/
-# Install wordpress CLI to allow command line management
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+# Configure PHP to work with WordPress
+COPY	./conf/www.conf /etc/php/7.4/fpm/pool.d/
+RUN	mkdir -p /run/php
+
+# Download and install WordPress Command Line Interface
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
-RUN mv wp-cli.phar /usr/local/bin/wp-cli
+RUN mv wp-cli.phar /usr/local/bin/wp
 
-ENTRYPOINT ["sh", "-c", "/bin/bash /tmp/startup.sh;"]
+# Copy the WordPress setup script
+COPY	./tools/startup.sh /bin/
+RUN	chmod +x /bin/startup.sh
+
+ENTRYPOINT	["sh", "/bin/startup.sh"]
