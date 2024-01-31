@@ -1,8 +1,9 @@
 version: '3.7'
 services:
   nginx:
-    build:  ./requirements/nginx
+    image: nginx:inception
     container_name: nginx
+    build:  ./requirements/nginx
     restart: always
     depends_on:
       - wordpress
@@ -16,8 +17,9 @@ services:
       - wordpress-volume:/var/www/wordpress
     
   wordpress:
-    build:  ./requirements/wordpress
+    image: wordpress:inception
     container_name: wordpress
+    build:  ./requirements/wordpress
     restart: always
     depends_on:
       - mariadb
@@ -30,8 +32,9 @@ services:
       - wordpress-volume:/var/www/wordpress
   
   mariadb:
-    build: ./requirements/mariadb
+    image: mariadb:inception
     container_name: mariadb
+    build: ./requirements/mariadb
     restart: always
     expose:
       - "3306"

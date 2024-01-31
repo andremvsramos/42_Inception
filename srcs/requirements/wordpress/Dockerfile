@@ -1,31 +1,29 @@
-# Penultimate stable version of Debian, at the time of the project
+# Penultimate stable version of Debian
 FROM debian:bullseye
 
 # Default port for PHP-FPM
 EXPOSE	9000
 
-ARG	PHPPATH=/etc/php/7.4/fpm
-
-RUN		apt update && apt install --no-install-recommends --no-install-suggests -y \
-		ca-certificates \
-		php7.4-fpm \
-		php7.4-mysql \
-		mariadb-client \
-		wget \
-		tar
+RUN	apt update && apt install --no-install-recommends --no-install-suggests -y \
+	ca-certificates \
+	php7.4-fpm \
+	php7.4-mysql \
+	mariadb-client \
+	wget \
+	tar
 
 # Download and extract WordPress
 RUN wget https://wordpress.org/wordpress-6.3.1.tar.gz -P /var/www
 RUN cd /var/www && tar -xzf wordpress-6.3.1.tar.gz && rm wordpress-6.3.1.tar.gz
 
 # Copy the WordPress configuration file
-COPY ./conf/wp-config.php /var/www/wordpress/wordpress/wp-config.php 
+COPY ./conf/wp-config.php /var/www/wordpress/
 
 # Set ownership of the WordPress directory
 RUN chown -R root:root /var/www/wordpress
 
 # Configure PHP to work with WordPress
-COPY	./conf/www.conf /etc/php/7.4/fpm/pool.d/
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 RUN	mkdir -p /run/php
 
 # Download and install WordPress Command Line Interface

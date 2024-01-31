@@ -43,7 +43,6 @@ mariadb-admin -uroot -p$MYSQL_ROOT_PASSWORD --wait-for-all-slaves shutdown
 # Start the MariaDB server in a safe mode
 mysqld_safe
 
-
 #HOW TO CHECK IF EVERYTHING IS OK SO FAR:
 #1)build the image;
 #2)docker run -d 48331fc16a65 (run the image)
