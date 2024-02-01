@@ -57,7 +57,7 @@ The Inception Project is a multifaceted endeavor that involves creating diverse 
 - [Luís Pereira](https://github.com/lubuper)
   
 Special Thanks to:
-- [Tiago Olbrien's GitHub](https://github.com/olbrien) for providing insights on how to approach project debugging. This assistance was valuable in understanding how the project works internally and troubleshooting issues.
+- [Tiago Olbrien](https://github.com/olbrien) for providing insights on how to approach project debugging. This assistance was valuable in understanding how the project works internally and troubleshooting issues.
 
 ## License
 
