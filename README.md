@@ -51,10 +51,10 @@ The Inception Project is a multifaceted endeavor that involves creating diverse 
 
 ## Collaborators
 
-- [José Pedro's GitHub](https://github.com/ZPedro99)
-- [Rafael Soares' GitHub](https://github.com/rafaSoares1)
-- [Tiago Pereira's GitHub](https://github.com/t-pereira06)
-- [Luís Pereira's GitHub](https://github.com/lubuper)
+- [José Pedro](https://github.com/ZPedro99)
+- [Rafael Soares](https://github.com/rafaSoares1)
+- [Tiago Pereira](https://github.com/t-pereira06)
+- [Luís Pereira](https://github.com/lubuper)
   
 Special Thanks to:
 - [Tiago Olbrien's GitHub](https://github.com/olbrien) for providing insights on how to approach project debugging. This assistance was valuable in understanding how the project works internally and troubleshooting issues.
