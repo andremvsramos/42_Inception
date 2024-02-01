@@ -2,6 +2,20 @@
 
 Creating Docker container images for a full-stack development environment.
 
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Notes](#notes)
+4. [Usage](#usage)
+   - [Monitoring Container Status](#monitoring-container-status)
+   - [Inspecting MariaDB Contents](#inspecting-mariadb-contents)
+   - [Controlling Container Processes](#controlling-container-processes)
+   - [Cleanup](#cleanup)
+   - [Fresh Reinstall](#fresh-reinstall)
+5. [DEBUGGING](#debugging)
+6. [Collaborators](#collaborators)
+7. [Special Thanks](#special-thanks)
+8. [License](#license)
+
 ## Overview
 
 The Inception Project is a multifaceted endeavor that involves creating diverse Docker container images for services running on Debian or Alpine. The challenge extends to encapsulating these services using Docker Compose, ensuring functionality between them, and even on machines lacking necessary libraries. This project allows for a deeper delve into full-stack development, using WordPress as the frontend, NGINX as the web server, and MariaDB as the backend.
