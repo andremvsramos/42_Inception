@@ -75,4 +75,4 @@ Special Thanks to:
 
 ## License
 
-This project is licensed under the same terms as the 42 Inception Project and was created as part of the 42 Porto curriculum.
+This project was created as part of the 42 Porto curriculum.
